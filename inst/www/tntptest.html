@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TNTP Test</title>
+    
+    <!-- Include order: first jquery, then opencpu.js, and then your code -->
+    <script src="opencpu/jquery-1.10.2.min.js"></script>
+    <script src="opencpu/opencpu-0.4.js"></script>
+
+    <script>
+    //init this script when the page has loaded
+    $(document).ready(function(){
+      $("#submitbutton").on("click", function(){
+        
+        //disable the button to prevent multiple clicks
+        $("#submitbutton").attr("disabled", "disabled");
+        
+        //create the plot area on the plotdiv element
+        var req = $("#plotdiv").rplot("bostonhist", {
+          variable : $("#variable").val(),
+        })
+
+        //if R returns an error, alert the error message
+        req.fail(function(){
+          alert("Server error: " + req.responseText);
+        });
+        
+        //after request complete, re-enable the button 
+        req.always(function(){
+          $("#submitbutton").removeAttr("disabled")
+        });
+      });
+    });
+    </script>
+    
+    <style>
+      #plotdiv {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        border: solid gray 1px;
+      }
+    </style>
+    
+  </head>
+    
+  <body>
+    <h1>TNTP Test Plots</h1>    
+    
+    <h3> Plot Test data 2</h3>
+
+    <b>Variable</b>
+    <select id="variable">
+      <option>testcol</option>
+      <option>crim</option>
+      <option>zn</option>
+      <option>indus</option>
+      <option>chas</option>
+      <option>nox</option>
+      <option>rm</option>
+      <option>age</option>
+      <option>dis</option>
+      <option>rad</option>
+      <option>tax</option>
+      <option>ptratio</option>
+      <option>black</option>
+      <option>lstat</option>
+      <option>medv</option>
+    </select> 
+    
+    <br />
+    <button id="submitbutton" type="button">Create plot</button>
+    
+    <div id="plotdiv"></div>      
+
+    <br />
+    
+  </body>
+</html>
