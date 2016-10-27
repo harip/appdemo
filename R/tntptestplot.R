@@ -1,4 +1,4 @@
-bostonhist <- function(variable){
+tntptestplot <- function(variable){
 	#hist(Boston[[variable]], xlab=variable, main="Example plot with lazyload data")
 
 	x <- c(1:5); y <- x # create some data 
